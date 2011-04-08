@@ -1,11 +1,18 @@
 package de.flashforum.ffk11.model
 {
+    import mx.collections.IList;
 
     public interface IExample
     {
 
-        function get name():String;
+        function get children():IList;
 
-        [Bindable("nameChanged")] function set name(value:String):void;
+        [Bindable("childrenChanged")]
+        function set children(value:IList):void;
+
+        function get label():String;
+
+        [Bindable("labelChanged")]
+        function set label(value:String):void;
     }
 }

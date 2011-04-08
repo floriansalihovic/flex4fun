@@ -5,6 +5,7 @@ package de.flashforum.ffk11.views.components
 
     import spark.components.HGroup;
     import spark.components.List;
+    import spark.events.IndexChangeEvent;
 
     public class ListChain extends HGroup
     {
@@ -62,8 +63,20 @@ package de.flashforum.ffk11.views.components
             if(!_firstList)
             {
                 _firstList = new List();
+                _firstList.addEventListener(IndexChangeEvent.CHANGE, firstList_changeHandler);
+                _firstList.addEventListener(IndexChangeEvent.CHANGING, firstList_changingHandler);
                 _lists[0] = List(addElement(_firstList));
             }
+        }
+
+        private function firstList_changeHandler(event:IndexChangeEvent):void
+        {
+            trace("firstList_changeHandler");
+        }
+
+        private function firstList_changingHandler(event:IndexChangeEvent):void
+        {
+            trace("firstList_changingHandler");
         }
     }
 }
