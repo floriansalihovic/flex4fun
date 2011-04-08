@@ -13,14 +13,24 @@
         private function preinitializeHandler(event:FlexEvent):void
         {
             var ex:IExample;
-            for (var i:uint; i < 100; i++)
+            const length:int = 10;
+            for (var i:uint; i < length; i++)
             {
-                ex = new ExampleDTO();
-                ex.label = "Example " + i;
-                dataProvider.addItem(ex);
+                dataProvider.addItem(createSomeData(new ExampleDTO("ExampleDTO" + i), length));
             }
         }
 
+        private function createSomeData(ex:IExample, numberOfChildren:uint):IExample
+        {
+            ex ||= new ExampleDTO("Some data");
+
+            for (var i:int; i < numberOfChildren; i++)
+            {
+                ex.children.addItem(new ExampleDTO("ExampleDTO" + i));
+            }
+
+            return ex;
+        }
         ]]>
     </fx:Script>
 

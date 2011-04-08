@@ -3,15 +3,19 @@ package de.flashforum.ffk11.model
     import flash.events.Event;
     import flash.events.EventDispatcher;
 
+    import mx.collections.ArrayList;
+
     import mx.collections.IList;
 
     public class ExampleDTO extends EventDispatcher implements IExample
     {
 
         private var _children:IList;
+
         public function get children():IList
         {
-            return _children;
+            // this can be generated lazy
+            return _children ||= new ArrayList();
         }
 
         [Bindable("childrenChanged")]
@@ -44,8 +48,9 @@ package de.flashforum.ffk11.model
             dispatchEvent(new Event("labelChanged"));
         }
 
-        public function ExampleDTO()
+        public function ExampleDTO(label:String)
         {
+            _label = label
         }
     }
 }

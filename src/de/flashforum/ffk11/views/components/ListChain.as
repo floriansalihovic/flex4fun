@@ -85,7 +85,7 @@ package de.flashforum.ffk11.views.components
 
         private function getListAfter(list:List):List
         {
-            if (!list)
+            if (!list || isLastList(list))
             {
                 return newList();
             }
