@@ -17,5 +17,17 @@
         <s:State name="disabledWithControlBar" stateGroups="withControls" />
     </s:states>
 
-    <s:Group id="contentGroup"></s:Group>
+    <s:VGroup horizontalAlign="justify">
+
+        <s:HGroup>
+            <s:Label id="titleDisplay"/>
+            <s:Button id="closeButton"/>
+        </s:HGroup>
+
+
+        <s:Group id="contentGroup"></s:Group>
+
+    </s:VGroup>
+
+
 </s:SparkSkin>
