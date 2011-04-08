@@ -1,27 +1,31 @@
 package de.flashforum.ffk11.model
 {
-import flash.events.Event;
-import flash.events.EventDispatcher;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
 
-public class ExampleDTO extends EventDispatcher implements IExample {
+    public class ExampleDTO extends EventDispatcher implements IExample
+    {
 
         private var _name:String;
 
-    public function get name():String {
-        return _name;
-    }
-
-    [Bindable("nameChanged")]
-    public function set name(value:String):void {
-        if (_name == value) {
-            return;
+        public function get name():String
+        {
+            return _name;
         }
 
-        _name = value;
-        dispatchEvent(new Event("nameChanged"));
-    }
+        [Bindable("nameChanged")]
+        public function set name(value:String):void
+        {
+            if (_name == value)
+            {
+                return;
+            }
 
-    public function ExampleDTO()
+            _name = value;
+            dispatchEvent(new Event("nameChanged"));
+        }
+
+        public function ExampleDTO()
         {
         }
     }

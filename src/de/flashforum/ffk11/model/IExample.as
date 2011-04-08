@@ -6,7 +6,6 @@ package de.flashforum.ffk11.model
 
         function get name():String;
 
-        [Bindable("nameChanged")]
-        function set name(value:String):void;
+        [Bindable("nameChanged")] function set name(value:String):void;
     }
 }
