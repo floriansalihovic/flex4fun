@@ -11,10 +11,10 @@
     </fx:Metadata>
 
     <s:states>
-        <s:State name="normal" />
-        <s:State name="disabled" />
-        <s:State name="normalWithControlBar" stateGroups="withControls" />
-        <s:State name="disabledWithControlBar" stateGroups="withControls" />
+        <s:State name="normal"/>
+        <s:State name="disabled"/>
+        <s:State name="normalWithControlBar" stateGroups="withControls"/>
+        <s:State name="disabledWithControlBar" stateGroups="withControls"/>
     </s:states>
 
     <s:VGroup horizontalAlign="justify">
@@ -26,6 +26,10 @@
 
 
         <s:Group id="contentGroup"></s:Group>
+
+        <!--- @copy spark.components.Panel#controlBarGroup -->
+        <s:HGroup id="controlBarGroup" paddingLeft="10" paddingRight="10" paddingTop="7"
+                  paddingBottom="7" gap="10" top="1" bottom="1" minWidth="0" minHeight="0"/>
 
     </s:VGroup>
 

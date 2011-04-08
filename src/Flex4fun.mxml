@@ -17,6 +17,11 @@
 
     <components:Panel>
         <s:Button id="fred" label="Fred" />
+
+        <components:controlBarContent>
+            <s:Button label="Barney" />
+        </components:controlBarContent>
+
     </components:Panel>
 
 </s:Application>
