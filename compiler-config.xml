@@ -1,10 +1,15 @@
 <flex-config xmlns="http://www.adobe.com/2006/flex-config">
-  <compiler>
-    <debug>true</debug>
-    <source-path><path-element>/Users/ffk11/Projects/flex4fun/src</path-element></source-path>
-  </compiler>
-  <file-specs>
-    <path-element>/Users/ffk11/Projects/flex4fun/src/Flex4fun.mxml</path-element>
-  </file-specs>
-  <output>/Users/ffk11/Projects/flex4fun/out/production/flex4fun/Flex4fun.swf</output>
+    <compiler>
+        <debug>true</debug>
+        <theme append="true">
+            <filename>src/Flex4fun.css</filename>
+        </theme>
+        <source-path>
+            <path-element>src</path-element>
+        </source-path>
+    </compiler>
+    <file-specs>
+        <path-element>src/Flex4fun.mxml</path-element>
+    </file-specs>
+    <output>out/production/flex4fun/Flex4fun.swf</output>
 </flex-config>

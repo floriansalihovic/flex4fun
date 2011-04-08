@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<componentPackage>
+
+    <component id="ButtonSkin" class="de.flashforum.ffk11.views.components.skins.ButtonSkin"/>
+    <component id="ExampleDTO" class="de.flashforum.ffk11.model.ExampleDTO"/>
+    <component id="IExampleDTO" class="de.flashforum.ffk11.model.IExample"/>
+    <component id="MyUIComponent" class="de.flashforum.ffk11.views.components.MyUIComponent"/>
+    <component id="MyUIComponentSkin" class="de.flashforum.ffk11.views.components.skins.MyUIComponentSkin"/>
+    <component id="PanelSkin" class="de.flashforum.ffk11.views.components.skins.PanelSkin"/>
+
+</componentPackage>

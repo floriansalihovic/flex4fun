@@ -1,0 +1,8 @@
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace components "de.flashforum.ffk11.views.components.*";
+
+components|Panel #closeButton
+{
+    color: #FF0000;
+    skinClass:ClassReference("de.flashforum.ffk11.views.components.skins.ButtonSkin");
+}
