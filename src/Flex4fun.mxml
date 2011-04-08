@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:components="de.flashforum.ffk11.views.components.*">
+
+    <fx:Script>
+        <![CDATA[
+        ]]>
+    </fx:Script>
+
+    <fx:Declarations/>
+
+    <components:MyUIComponent myName="Florian" />
+
+</s:Application>
