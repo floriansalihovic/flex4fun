@@ -53,7 +53,7 @@ package de.flashforum.ffk11.views.components
         {
             super.commitProperties();
 
-            if(_dataProviderChanged)
+            if (_dataProviderChanged)
             {
                 _dataProviderChanged = false;
                 _firstList.dataProvider = _dataProvider;
@@ -65,7 +65,7 @@ package de.flashforum.ffk11.views.components
         {
             super.createChildren();
 
-            if(!_firstList)
+            if (!_firstList)
             {
                 _firstList = newList();
                 _lists.addItem(List(addElement(_firstList)));
@@ -87,7 +87,6 @@ package de.flashforum.ffk11.views.components
             trace("firstList_changeHandler");
 
             const oldList:List = List(event.target);
-            const index:uint = _lists.getItemIndex(oldList);
             const ex:IExample = oldList.selectedItem as IExample;
 
             if (!ex)
@@ -95,21 +94,7 @@ package de.flashforum.ffk11.views.components
                 return;
             }
 
-            var nextList:List;
-
-            if (index == _lists.length - 1)
-            {
-                nextList = newList();
-            }
-            else if (index < _lists.length - 2)
-            {
-                nextList = List(_lists.getItemAt(index + 1));
-            }
-            else
-            {
-                nextList = List(_lists.getItemAt(index + 1));
-                removeListsAfter(index + 1);
-            }
+            const nextList:List = getNextListAndClear(oldList);
 
             nextList.dataProvider = ex.children;
             addElement(nextList);
@@ -117,13 +102,79 @@ package de.flashforum.ffk11.views.components
             _lists.addItem(nextList);
         }
 
-        private function removeListsAfter(index:int):void
+        private function getNextList(list:List):List
         {
-            const length:int = _lists.length - 1;
-            for (var i:uint = length; i > index; i--)
+            if (!list || isLastList(list))
             {
-                _lists.removeItemAt(i);
-                removeElementAt(i);
+                return newList();
+            }
+
+            return getListAfter(list);
+        }
+
+        private function getListAfter(list:List):List
+        {
+            if (!list)
+            {
+                return newList();
+            }
+
+            return List(_lists.getItemAt(_lists.getItemIndex(list + 1)));
+        }
+
+        private function isFirstList(list:List):Boolean
+        {
+            return list == _firstList;
+        }
+
+        private function isLastList(list:List):Boolean
+        {
+            if (!list)
+            {
+                return false;
+            }
+
+            return list == _lists.getItemAt(_lists.length - 1);
+        }
+
+        private function hasMoreLists(list:List):Boolean
+        {
+            return !isLastList(list);
+        }
+
+
+        private function getNextListAndClear(list:List):List
+        {
+            // the list passed is the last list
+            if (!hasMoreLists(list))
+            {
+                return newList();
+            }
+
+            var nextList:List = getNextList(list);
+
+            if (hasMoreLists(nextList))
+            {
+                hideListsAfter(nextList);
+            }
+
+            return nextList;
+        }
+
+        private function hideListsAfter(list:List):void
+        {
+            if (!list)
+            {
+                return
+            }
+
+            const length:uint = _lists.length;
+            var i:int = _lists.getItemIndex(list);
+
+            for (; i < length; i++)
+            {
+                var list:List = List(_lists.getItemAt(i));
+                list.visible = list.includeInLayout = false;
             }
         }
 
