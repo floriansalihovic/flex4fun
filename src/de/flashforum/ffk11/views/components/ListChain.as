@@ -14,6 +14,16 @@ package de.flashforum.ffk11.views.components
     public class ListChain extends HGroup
     {
 
+        //---------------------------------------------------------------------
+        //
+        //          Properties
+        //
+        //---------------------------------------------------------------------
+
+        //-----------------------------
+        //          dataProvider
+        //-----------------------------
+
         private var _dataProvider:IList;
 
         private var _dataProviderChanged:Boolean;
@@ -34,73 +44,34 @@ package de.flashforum.ffk11.views.components
             invalidateProperties();
         }
 
+        //-----------------------------
+        //          firstList
+        //-----------------------------
+
         private var _firstList:List;
 
+        //-----------------------------
+        //          lists
+        //-----------------------------
+
         private var _lists:IList;
+
+        //---------------------------------------------------------------------
+        //
+        //          Constructor
+        //
+        //---------------------------------------------------------------------
 
         public function ListChain()
         {
             addEventListener(FlexEvent.PREINITIALIZE, preinitialize);
         }
 
-        private function preinitialize(event:FlexEvent):void
-        {
-            _lists = new ArrayList();
-            clipAndEnableScrolling = true;
-        }
-
-        override protected function commitProperties():void
-        {
-            super.commitProperties();
-
-            if (_dataProviderChanged)
-            {
-                _dataProviderChanged = false;
-                _firstList.dataProvider = _dataProvider;
-            }
-        }
-
-
-        override protected function createChildren():void
-        {
-            super.createChildren();
-
-            if (!_firstList)
-            {
-                _firstList = newList();
-                _lists.addItem(List(addElement(_firstList)));
-            }
-        }
-
-        private function newList():List
-        {
-            const list:List = new List();
-            list.addEventListener(IndexChangeEvent.CHANGE, firstList_changeHandler);
-            list.addEventListener(IndexChangeEvent.CHANGING, firstList_changingHandler);
-            list.percentHeight = 100;
-
-            return list;
-        }
-
-        private function firstList_changeHandler(event:IndexChangeEvent):void
-        {
-            trace("firstList_changeHandler");
-
-            const oldList:List = List(event.target);
-            const ex:IExample = oldList.selectedItem as IExample;
-
-            if (!ex)
-            {
-                return;
-            }
-
-            const nextList:List = getNextListAndClear(oldList);
-
-            nextList.dataProvider = ex.children;
-            addElement(nextList);
-
-            _lists.addItem(nextList);
-        }
+        //---------------------------------------------------------------------
+        //
+        //          Methods
+        //
+        //---------------------------------------------------------------------
 
         private function getNextList(list:List):List
         {
@@ -178,9 +149,80 @@ package de.flashforum.ffk11.views.components
             }
         }
 
-        private function firstList_changingHandler(event:IndexChangeEvent):void
+        private function newList():List
         {
-            trace("firstList_changingHandler");
+            const list:List = new List();
+            list.addEventListener(IndexChangeEvent.CHANGE, list_changeHandler);
+            list.percentHeight = 100;
+            _lists.addItem(list);
+
+            return list;
+        }
+
+        //---------------------------------------------------------------------
+        //
+        //          Event Handler
+        //
+        //---------------------------------------------------------------------
+
+        private function list_changeHandler(event:IndexChangeEvent):void
+        {
+            const list:List = List(event.target);
+            const ex:IExample = list.selectedItem as IExample;
+
+            if (!ex)
+            {
+                hideListsAfter(list);
+            }
+            else
+            {
+                const nextList:List = getNextListAndClear(list);
+                nextList.dataProvider = ex.children;
+
+                if (!nextList.parent)
+                {
+                    addElement(nextList);
+                }
+            }
+        }
+
+        private function preinitialize(event:FlexEvent):void
+        {
+            _lists = new ArrayList();
+            clipAndEnableScrolling = true;
+        }
+
+        //---------------------------------------------------------------------
+        //
+        //          Overridden Methods
+        //
+        //---------------------------------------------------------------------
+
+        /**
+         * @inheritDoc
+         */
+        override protected function commitProperties():void
+        {
+            super.commitProperties();
+
+            if (_dataProviderChanged)
+            {
+                _dataProviderChanged = false;
+                _firstList.dataProvider = _dataProvider;
+            }
+        }
+
+        /**
+         * @inheritDoc
+         */
+        override protected function createChildren():void
+        {
+            super.createChildren();
+
+            if (!_firstList)
+            {
+                _lists.addItem(List(addElement(_firstList = newList())));
+            }
         }
     }
 }
